@@ -1,0 +1,19 @@
+.status-badge,
+.severity-badge {
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: 16px;
+  font-size: 10px;
+  font-weight: 700;
+  color: #fff;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+  transition: transform 0.2s;
+}
+
+.status-badge:hover,
+.severity-badge:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
+}

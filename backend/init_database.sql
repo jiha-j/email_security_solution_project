@@ -199,6 +199,82 @@ INSERT INTO security_issues (
     'external@partner.com'
 );
 
+-- 추가 수신메일 이슈
+INSERT INTO security_issues (
+    title, description, category, type, status, severity,
+    detected_date, resolved_date, affected_emails, source_ip, target_email
+) VALUES
+(
+    N'악성 매크로 포함 엑셀 파일 탐지',
+    N'매크로 자동 실행 시 원격 서버 접속 시도하는 악성 파일 차단',
+    N'바이러스, 랜섬웨어 등 악성코드 공격',
+    'INBOUND',
+    'REVIEW',
+    'HIGH',
+    DATEADD(HOUR, -4, GETDATE()),
+    NULL,
+    7,
+    '104.28.16.238',
+    'sales@company.com'
+);
+
+-- 추가 발신메일 이슈
+INSERT INTO security_issues (
+    title, description, category, type, status, severity,
+    detected_date, resolved_date, affected_emails, source_ip, target_email
+) VALUES
+(
+    N'승인되지 않은 대량 메일 발송 탐지',
+    N'마케팅 승인 없이 2,300건의 광고 메일 발송 시도',
+    N'악성 메일 회신',
+    'OUTBOUND',
+    'PENDING',
+    'MEDIUM',
+    DATEADD(HOUR, -7, GETDATE()),
+    NULL,
+    2300,
+    '192.168.1.78',
+    'multiple-recipients@various.com'
+);
+
+-- 추가 수신메일 이슈 (심각 + 대기)
+INSERT INTO security_issues (
+    title, description, category, type, status, severity,
+    detected_date, resolved_date, affected_emails, source_ip, target_email
+) VALUES
+(
+    N'제로데이 취약점 공격 시도 탐지',
+    N'Exchange Server 제로데이 취약점을 이용한 원격 코드 실행 시도',
+    N'바이러스, 랜섬웨어 등 악성코드 공격',
+    'INBOUND',
+    'PENDING',
+    'CRITICAL',
+    DATEADD(HOUR, -1, GETDATE()),
+    NULL,
+    25,
+    '47.89.153.201',
+    'mailserver@company.com'
+);
+
+-- 추가 수신메일 이슈 (보통 + 대기)
+INSERT INTO security_issues (
+    title, description, category, type, status, severity,
+    detected_date, resolved_date, affected_emails, source_ip, target_email
+) VALUES
+(
+    N'의심스러운 압축파일 첨부 메일',
+    N'password-protected ZIP 파일 내부에 .scr 실행파일 포함',
+    N'바이러스, 랜섬웨어 등 악성코드 공격',
+    'INBOUND',
+    'PENDING',
+    'MEDIUM',
+    DATEADD(HOUR, -9, GETDATE()),
+    NULL,
+    18,
+    '213.174.92.66',
+    'support@company.com'
+);
+
 GO
 
 -- 4. 데이터 확인
@@ -233,3 +309,192 @@ PRINT '';
 PRINT '=== 초기화 성공! ===';
 PRINT '이제 Spring Boot 애플리케이션을 실행하세요.';
 GO
+
+-- ====================================================================
+-- 생성된 보안 이슈 목록 (총 14건)
+-- ====================================================================
+
+/*
+📥 수신메일 이슈 (INBOUND) - 8건
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+이슈 #1
+  제목: 대량 스팸 메일 탐지 (1,250건)
+  설명: 단일 IP에서 1시간 내 1,250건의 스팸 메일 발송 탐지
+  카테고리: 대량 스팸 메일 공격
+  유형: 수신메일 (INBOUND)
+  상태: 긴급 (CRITICAL)
+  심각도: 긴급 (CRITICAL)
+  영향받은 이메일: 1,250건
+  출발지 IP: 203.142.78.91
+  대상 이메일: admin@company.com
+
+이슈 #2
+  제목: 피싱 사이트 링크 포함 메일
+  설명: 은행 사칭 피싱 사이트로 유도하는 링크 발견
+  카테고리: 개인정보 탈취 피싱 사이트 공격
+  유형: 수신메일 (INBOUND)
+  상태: 대기 (PENDING)
+  심각도: 높음 (HIGH)
+  영향받은 이메일: 15건
+  출발지 IP: 185.220.101.45
+  대상 이메일: hr@company.com
+
+이슈 #3
+  제목: 의심스러운 첨부파일 탐지
+  설명: ransomware.exe 파일이 첨부된 메일 차단
+  카테고리: 바이러스, 랜섬웨어 등 악성코드 공격
+  유형: 수신메일 (INBOUND)
+  상태: 긴급 (CRITICAL)
+  심각도: 긴급 (CRITICAL)
+  영향받은 이메일: 3건
+  출발지 IP: 91.203.45.122
+  대상 이메일: finance@company.com
+
+이슈 #4
+  제목: 헤더 위변조 메일 탐지
+  설명: CEO 이메일을 사칭한 송금 요청 메일
+  카테고리: 헤더 위·변조 및 유사 도메인 사칭 메일
+  유형: 수신메일 (INBOUND)
+  상태: 검토중 (REVIEW)
+  심각도: 높음 (HIGH)
+  영향받은 이메일: 8건
+  출발지 IP: 172.104.88.29
+  대상 이메일: accounting@company.com
+
+이슈 #5
+  제목: 불법 릴레이 서버 사용 탐지
+  설명: 외부 서버를 통한 스팸 메일 발송 시도
+  카테고리: 불법 릴레이 서버 사용
+  유형: 수신메일 (INBOUND)
+  상태: 대기 (PENDING)
+  심각도: 보통 (MEDIUM)
+  영향받은 이메일: 45건
+  출발지 IP: 198.51.100.42
+  대상 이메일: mail-relay@company.com
+
+이슈 #11
+  제목: 악성 매크로 포함 엑셀 파일 탐지
+  설명: 매크로 자동 실행 시 원격 서버 접속 시도하는 악성 파일 차단
+  카테고리: 바이러스, 랜섬웨어 등 악성코드 공격
+  유형: 수신메일 (INBOUND)
+  상태: 검토중 (REVIEW)
+  심각도: 높음 (HIGH)
+  영향받은 이메일: 7건
+  출발지 IP: 104.28.16.238
+  대상 이메일: sales@company.com
+
+이슈 #13
+  제목: 제로데이 취약점 공격 시도 탐지
+  설명: Exchange Server 제로데이 취약점을 이용한 원격 코드 실행 시도
+  카테고리: 바이러스, 랜섬웨어 등 악성코드 공격
+  유형: 수신메일 (INBOUND)
+  상태: 대기 (PENDING)
+  심각도: 긴급 (CRITICAL)
+  영향받은 이메일: 25건
+  출발지 IP: 47.89.153.201
+  대상 이메일: mailserver@company.com
+
+이슈 #14
+  제목: 의심스러운 압축파일 첨부 메일
+  설명: password-protected ZIP 파일 내부에 .scr 실행파일 포함
+  카테고리: 바이러스, 랜섬웨어 등 악성코드 공격
+  유형: 수신메일 (INBOUND)
+  상태: 대기 (PENDING)
+  심각도: 보통 (MEDIUM)
+  영향받은 이메일: 18건
+  출발지 IP: 213.174.92.66
+  대상 이메일: support@company.com
+
+
+📤 발신메일 이슈 (OUTBOUND) - 6건
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+이슈 #6
+  제목: 고객 정보 포함 메일 외부 발송
+  설명: 개인정보 500건이 포함된 엑셀 파일 외부 전송
+  카테고리: 기업 내부 정보 유출 및 오발송 사고
+  유형: 발신메일 (OUTBOUND)
+  상태: 긴급 (CRITICAL)
+  심각도: 긴급 (CRITICAL)
+  영향받은 이메일: 500건
+  출발지 IP: 192.168.1.105
+  대상 이메일: external-partner@gmail.com
+
+이슈 #7
+  제목: 바이러스 URL 공유 탐지
+  설명: 악성 URL이 포함된 메일 발송 차단
+  카테고리: 바이러스 URL 공유
+  유형: 발신메일 (OUTBOUND)
+  상태: 검토중 (REVIEW)
+  심각도: 높음 (HIGH)
+  영향받은 이메일: 12건
+  출발지 IP: 192.168.1.87
+  대상 이메일: client@external.com
+
+이슈 #8
+  제목: 악성 메일 회신 탐지
+  설명: 피싱 메일에 대한 직원의 회신 차단
+  카테고리: 악성 메일 회신
+  유형: 발신메일 (OUTBOUND)
+  상태: 해결 (RESOLVED)
+  심각도: 보통 (MEDIUM)
+  영향받은 이메일: 1건
+  출발지 IP: 192.168.1.54
+  대상 이메일: phishing@fake-bank.com
+
+이슈 #9
+  제목: 대용량 파일 무단 발송
+  설명: 500MB 파일을 승인 없이 외부로 발송
+  카테고리: 대용량 파일 사후관리 문제
+  유형: 발신메일 (OUTBOUND)
+  상태: 대기 (PENDING)
+  심각도: 낮음 (LOW)
+  영향받은 이메일: 1건
+  출발지 IP: 192.168.1.92
+  대상 이메일: storage@external.com
+
+이슈 #10
+  제목: 망분리 환경 파일 전송 시도
+  설명: 내부망에서 외부망으로 첨부파일 전송 시도 탐지
+  카테고리: 망분리 환경에서 대용량 첨부파일 발송 문제
+  유형: 발신메일 (OUTBOUND)
+  상태: 검토중 (REVIEW)
+  심각도: 보통 (MEDIUM)
+  영향받은 이메일: 1건
+  출발지 IP: 10.0.0.55
+  대상 이메일: external@partner.com
+
+이슈 #12
+  제목: 승인되지 않은 대량 메일 발송 탐지
+  설명: 마케팅 승인 없이 2,300건의 광고 메일 발송 시도
+  카테고리: 악성 메일 회신
+  유형: 발신메일 (OUTBOUND)
+  상태: 대기 (PENDING)
+  심각도: 보통 (MEDIUM)
+  영향받은 이메일: 2,300건
+  출발지 IP: 192.168.1.78
+  대상 이메일: multiple-recipients@various.com
+
+
+📊 통계 요약
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+총 이슈 수: 14건
+
+[유형별]
+  - 수신메일 (INBOUND): 8건
+  - 발신메일 (OUTBOUND): 6건
+
+[상태별]
+  - 긴급 (CRITICAL): 3건 (#1, #3, #6)
+  - 대기 (PENDING): 6건 (#2, #5, #9, #13, #14, #12)
+  - 검토중 (REVIEW): 4건 (#4, #11, #7, #10)
+  - 해결 (RESOLVED): 1건 (#8)
+
+[심각도별]
+  - 긴급 (CRITICAL): 5건 (#1, #3, #6, #13)
+  - 높음 (HIGH): 4건 (#2, #4, #11, #7)
+  - 보통 (MEDIUM): 4건 (#5, #8, #10, #12, #14)
+  - 낮음 (LOW): 1건 (#9)
+
+*/

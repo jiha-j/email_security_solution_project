@@ -41,49 +41,53 @@
   font-size: 15px;
   font-weight: 700;
   color: #2d3748;
-  margin-bottom: 12px;
+  margin-bottom: 0;
+  border-bottom: none;
+  padding-bottom: 0;
 }
 
 .section-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 12px;
+  margin-bottom: 10px;
   flex-wrap: wrap;
-  gap: 12px;
+  gap: 10px;
+  padding-bottom: 0;
+  border: none !important;
 }
 
 /* Filter Controls */
 .filter-controls {
   display: flex;
   align-items: center;
-  gap: 16px;
+  gap: 10px;
   flex-wrap: wrap;
 }
 
 .severity-filter-wrapper {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 6px;
 }
 
 .severity-filter-label {
-  font-size: 14px;
+  font-size: 11px;
   font-weight: 600;
   color: #4a5568;
 }
 
 .severity-filter-dropdown {
-  padding: 8px 12px;
+  padding: 5px 10px;
   border: 2px solid #e2e8f0;
   background: linear-gradient(135deg, #fdfcf0 0%, #fcfae8 100%);
-  border-radius: 8px;
-  font-size: 13px;
+  border-radius: 6px;
+  font-size: 11px;
   font-weight: 600;
   color: #4a5568;
   cursor: pointer;
   transition: all 0.2s;
-  min-width: 90px;
+  min-width: 80px;
 }
 
 .severity-filter-dropdown:hover {
@@ -99,16 +103,16 @@
 /* Filter Buttons */
 .filter-buttons {
   display: flex;
-  gap: 8px;
+  gap: 6px;
   flex-wrap: wrap;
 }
 
 .filter-btn {
-  padding: 8px 16px;
+  padding: 5px 12px;
   border: 2px solid #e2e8f0;
   background: linear-gradient(135deg, #fdfcf0 0%, #fcfae8 100%);
-  border-radius: 8px;
-  font-size: 14px;
+  border-radius: 6px;
+  font-size: 11px;
   font-weight: 600;
   color: #4a5568;
   cursor: pointer;
@@ -296,22 +300,30 @@
   border-color: #667eea;
 }
 
+/* Pagination Wrapper */
+.pagination-wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 6px;
+  padding: 6px;
+}
+
 /* Pagination */
 .pagination {
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 16px;
-  margin-top: 12px;
-  padding: 12px;
+  gap: 8px;
+  flex: 1;
 }
 
 .page-btn {
-  padding: 8px 16px;
-  border: 2px solid #e2e8f0;
+  padding: 4px 10px;
+  border: 1px solid #e2e8f0;
   background: linear-gradient(135deg, #fdfcf0 0%, #fcfae8 100%);
-  border-radius: 8px;
-  font-size: 14px;
+  border-radius: 6px;
+  font-size: 12px;
   font-weight: 600;
   color: #4a5568;
   cursor: pointer;
@@ -330,14 +342,38 @@
 }
 
 .page-info {
-  font-size: 14px;
+  font-size: 12px;
   font-weight: 600;
   color: #4a5568;
 }
 
 .page-info strong {
-  font-size: 16px;
+  font-size: 13px;
   color: #3b82f6;
+}
+
+/* Register Button */
+.register-btn {
+  padding: 6px 14px;
+  border: none;
+  background: linear-gradient(135deg, #2563eb 0%, #1e40af 100%);
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 700;
+  color: white;
+  cursor: pointer;
+  transition: all 0.3s;
+  box-shadow: 0 2px 4px rgba(37, 99, 235, 0.4);
+  white-space: nowrap;
+}
+
+.register-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(37, 99, 235, 0.6);
+}
+
+.register-btn:active {
+  transform: translateY(0);
 }
 
 /* Responsive */

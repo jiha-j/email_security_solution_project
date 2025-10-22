@@ -198,7 +198,7 @@ const Dashboard = () => {
                 <option value="ALL">전체</option>
                 <option value="MEDIUM">보통</option>
                 <option value="HIGH">높음</option>
-                <option value="CRITICAL">긴급</option>
+                <option value="CRITICAL">심각</option>
               </select>
             </div>
           </div>
@@ -241,27 +241,35 @@ const Dashboard = () => {
         </div>
 
         {/* Pagination Controls */}
-        {totalPages > 1 && (
-          <div className="pagination">
-            <button
-              className="page-btn"
-              disabled={currentPage === 1}
-              onClick={() => setCurrentPage(currentPage - 1)}
-            >
-              ◀ 이전
-            </button>
-            <span className="page-info">
-              페이지 <strong>{currentPage}</strong> / {totalPages}
-            </span>
-            <button
-              className="page-btn"
-              disabled={currentPage === totalPages}
-              onClick={() => setCurrentPage(currentPage + 1)}
-            >
-              다음 ▶
-            </button>
-          </div>
-        )}
+        <div className="pagination-wrapper">
+          {totalPages > 1 && (
+            <div className="pagination">
+              <button
+                className="page-btn"
+                disabled={currentPage === 1}
+                onClick={() => setCurrentPage(currentPage - 1)}
+              >
+                ◀ 이전
+              </button>
+              <span className="page-info">
+                페이지 <strong>{currentPage}</strong> / {totalPages}
+              </span>
+              <button
+                className="page-btn"
+                disabled={currentPage === totalPages}
+                onClick={() => setCurrentPage(currentPage + 1)}
+              >
+                다음 ▶
+              </button>
+            </div>
+          )}
+          <button
+            className="register-btn"
+            onClick={() => navigate('/register')}
+          >
+            ➕ 보안 이슈 등록
+          </button>
+        </div>
       </div>
     </div>
   );

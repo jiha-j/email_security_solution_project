@@ -2,6 +2,7 @@ import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Dashboard from './components/Dashboard';
 import IssueDetail from './components/IssueDetail';
+import IssueRegister from './components/IssueRegister';
 import './styles/App.css';
 
 function App() {
@@ -15,6 +16,7 @@ function App() {
           <Routes>
             <Route path="/" element={<Dashboard />} />
             <Route path="/issue/:id" element={<IssueDetail />} />
+            <Route path="/register" element={<IssueRegister />} />
           </Routes>
         </main>
       </div>

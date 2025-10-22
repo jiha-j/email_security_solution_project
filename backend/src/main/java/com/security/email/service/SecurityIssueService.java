@@ -40,6 +40,25 @@ public class SecurityIssueService {
                 .collect(Collectors.toList());
     }
 
+    // Create new issue
+    @Transactional
+    public SecurityIssueDTO createIssue(SecurityIssueDTO dto) {
+        SecurityIssue issue = new SecurityIssue();
+        issue.setTitle(dto.getTitle());
+        issue.setDescription(dto.getDescription());
+        issue.setCategory(dto.getCategory());
+        issue.setType(dto.getType());
+        issue.setStatus(dto.getStatus());
+        issue.setSeverity(dto.getSeverity());
+        issue.setAffectedEmails(dto.getAffectedEmails());
+        issue.setSourceIp(dto.getSourceIp());
+        issue.setTargetEmail(dto.getTargetEmail());
+        issue.setDetectedDate(LocalDateTime.now());
+
+        SecurityIssue saved = repository.save(issue);
+        return SecurityIssueDTO.fromEntity(saved);
+    }
+
     // Update issue status
     @Transactional
     public SecurityIssueDTO updateStatus(Long id, String newStatus) {

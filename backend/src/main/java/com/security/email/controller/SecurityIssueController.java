@@ -37,6 +37,11 @@ public class SecurityIssueController {
         return ResponseEntity.ok(service.getDashboardStats());
     }
 
+    @PostMapping
+    public ResponseEntity<SecurityIssueDTO> createIssue(@RequestBody SecurityIssueDTO issueDTO) {
+        return ResponseEntity.ok(service.createIssue(issueDTO));
+    }
+
     @PutMapping("/{id}/status")
     public ResponseEntity<SecurityIssueDTO> updateStatus(
             @PathVariable Long id,

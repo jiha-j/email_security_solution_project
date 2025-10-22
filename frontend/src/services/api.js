@@ -35,6 +35,12 @@ export const issueApi = {
     return response.data;
   },
 
+  // Create new issue
+  createIssue: async (issueData) => {
+    const response = await api.post('/issues', issueData);
+    return response.data;
+  },
+
   // Update issue status
   updateStatus: async (id, status) => {
     const response = await api.put(`/issues/${id}/status`, { status });

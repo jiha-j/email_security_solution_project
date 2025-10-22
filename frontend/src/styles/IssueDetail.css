@@ -50,26 +50,27 @@
 
 .detail-badges {
   display: flex;
-  gap: 10px;
+  gap: 8px;
   flex-wrap: wrap;
+  align-items: center;
 }
 
 .type-badge-large {
   display: inline-block;
-  padding: 8px 16px;
-  border-radius: 8px;
-  font-size: 14px;
+  padding: 4px 10px;
+  border-radius: 12px;
+  font-size: 11px;
   font-weight: 700;
 }
 
 .type-badge-large.inbound {
-  background: linear-gradient(135deg, #42A5F5 0%, #1976D2 100%);
-  color: white;
+  background: #e0f2fe;
+  color: #0369a1;
 }
 
 .type-badge-large.outbound {
-  background: linear-gradient(135deg, #FFA726 0%, #F57C00 100%);
-  color: white;
+  background: #ffedd5;
+  color: #c2410c;
 }
 
 .header-right {

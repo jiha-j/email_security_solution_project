@@ -54,8 +54,42 @@ CREATE INDEX IDX_SecurityIssue_Severity ON security_issues(severity);
 CREATE INDEX IDX_SecurityIssue_DetectedDate ON security_issues(detected_date DESC);
 GO
 
+-- Users 테이블 생성
+IF OBJECT_ID('users', 'U') IS NOT NULL
+    DROP TABLE users;
+GO
+
+CREATE TABLE users (
+    id BIGINT IDENTITY(1,1) PRIMARY KEY,
+    username NVARCHAR(50) NOT NULL UNIQUE,
+    password NVARCHAR(100) NOT NULL,
+    email NVARCHAR(100) NOT NULL UNIQUE,
+    role NVARCHAR(20) NOT NULL,
+    created_at DATETIME2 DEFAULT GETDATE(),
+    updated_at DATETIME2 DEFAULT GETDATE(),
+    CONSTRAINT CHK_Role CHECK (role IN ('ROLE_USER', 'ROLE_MANAGER', 'ROLE_ADMIN'))
+);
+GO
+
+-- Users 인덱스 생성
+CREATE INDEX IDX_Users_Username ON users(username);
+CREATE INDEX IDX_Users_Email ON users(email);
+GO
+
 -- 3. 샘플 데이터 삽입
 PRINT '샘플 데이터 삽입 시작...';
+
+-- 사용자 데이터 삽입
+-- 비밀번호: admin123, manager123, user123 (BCrypt 해시값)
+PRINT '사용자 계정 생성 중...';
+
+INSERT INTO users (username, password, email, role, created_at, updated_at) VALUES
+('admin', '$2a$10$N9qo8uLOickgx2ZMRZoMyeIjZAgcfl7p92ldGxad68LJZdL17lhWy', 'admin@company.com', 'ROLE_ADMIN', GETDATE(), GETDATE()),
+('manager', '$2a$10$YJKPmWLOickgx2ZMRZoMyeLbR3qj8NsHLK0d1fLb2HSM6LJZdL17lh', 'manager@company.com', 'ROLE_MANAGER', GETDATE(), GETDATE()),
+('user', '$2a$10$xn3LI/AJqicNat2R6zgx5.ExvZrLI5e5mHnTWZLdL17lhWyAV9uRG', 'user@company.com', 'ROLE_USER', GETDATE(), GETDATE());
+
+PRINT '사용자 계정 생성 완료';
+GO
 
 -- 수신메일 이슈 (INBOUND)
 INSERT INTO security_issues (
@@ -283,7 +317,18 @@ PRINT '';
 PRINT '생성된 테이블:';
 SELECT TABLE_NAME FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_TYPE = 'BASE TABLE';
 PRINT '';
-PRINT '삽입된 데이터 수:';
+PRINT '생성된 사용자:';
+SELECT
+    COUNT(*) AS [총 사용자 수],
+    SUM(CASE WHEN role = 'ROLE_ADMIN' THEN 1 ELSE 0 END) AS [관리자],
+    SUM(CASE WHEN role = 'ROLE_MANAGER' THEN 1 ELSE 0 END) AS [매니저],
+    SUM(CASE WHEN role = 'ROLE_USER' THEN 1 ELSE 0 END) AS [일반 사용자]
+FROM users;
+PRINT '';
+PRINT '사용자 목록 (테스트용 계정):';
+SELECT username, email, role FROM users;
+PRINT '';
+PRINT '삽입된 보안 이슈 데이터 수:';
 SELECT
     COUNT(*) AS [총 이슈 수],
     SUM(CASE WHEN type = 'INBOUND' THEN 1 ELSE 0 END) AS [수신메일 이슈],
@@ -309,6 +354,34 @@ PRINT '';
 PRINT '=== 초기화 성공! ===';
 PRINT '이제 Spring Boot 애플리케이션을 실행하세요.';
 GO
+
+-- ====================================================================
+-- 생성된 테스트 사용자 계정 (총 3명)
+-- ====================================================================
+/*
+👤 테스트 계정 정보
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+1. 관리자 계정 (ROLE_ADMIN)
+   - 사용자명: admin
+   - 비밀번호: admin123
+   - 이메일: admin@company.com
+   - 권한: 모든 기능 접근 가능
+
+2. 매니저 계정 (ROLE_MANAGER)
+   - 사용자명: manager
+   - 비밀번호: manager123
+   - 이메일: manager@company.com
+   - 권한: 이슈 상태 변경 가능
+
+3. 일반 사용자 계정 (ROLE_USER)
+   - 사용자명: user
+   - 비밀번호: user123
+   - 이메일: user@company.com
+   - 권한: 조회만 가능
+
+⚠️ 주의: 프로덕션 환경에서는 반드시 비밀번호를 변경하세요!
+*/
 
 -- ====================================================================
 -- 생성된 보안 이슈 목록 (총 14건)

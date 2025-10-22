@@ -9,6 +9,34 @@ const api = axios.create({
   },
 });
 
+// Axios interceptor to add JWT token to requests
+api.interceptors.request.use(
+  (config) => {
+    const token = localStorage.getItem('token');
+    if (token) {
+      config.headers.Authorization = `Bearer ${token}`;
+    }
+    return config;
+  },
+  (error) => {
+    return Promise.reject(error);
+  }
+);
+
+// Response interceptor to handle 401 errors
+api.interceptors.response.use(
+  (response) => response,
+  (error) => {
+    if (error.response?.status === 401) {
+      // Token expired or invalid - clear storage and redirect to login
+      localStorage.removeItem('token');
+      localStorage.removeItem('user');
+      window.location.href = '/login';
+    }
+    return Promise.reject(error);
+  }
+);
+
 // API endpoints
 export const issueApi = {
   // Get all issues
@@ -50,6 +78,21 @@ export const issueApi = {
   // Initialize sample data
   initSampleData: async () => {
     const response = await api.post('/issues/init-sample');
+    return response.data;
+  },
+};
+
+// Authentication API
+export const authApi = {
+  // Login
+  login: async (loginData) => {
+    const response = await api.post('/auth/login', loginData);
+    return response.data;
+  },
+
+  // Signup
+  signup: async (signupData) => {
+    const response = await api.post('/auth/signup', signupData);
     return response.data;
   },
 };

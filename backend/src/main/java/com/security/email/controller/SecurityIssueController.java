@@ -49,9 +49,9 @@ public class SecurityIssueController {
         return ResponseEntity.ok(service.updateStatus(id, request.getStatus()));
     }
 
-    @PostMapping("/init-sample")
-    public ResponseEntity<String> initSampleData() {
-        service.initSampleData();
-        return ResponseEntity.ok("Sample data initialized successfully");
-    }
+//    @PostMapping("/init-sample")
+//    public ResponseEntity<String> initSampleData() {
+//        service.initSampleData();
+//        return ResponseEntity.ok("Sample data initialized successfully");
+//    }
 }

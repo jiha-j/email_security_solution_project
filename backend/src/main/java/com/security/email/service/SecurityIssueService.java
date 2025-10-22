@@ -100,46 +100,46 @@ public class SecurityIssueService {
     }
 
     // Initialize sample data
-    @Transactional
-    public void initSampleData() {
-        if (repository.count() > 0) {
-            return; // Data already exists
-        }
-
-        List<SecurityIssue> sampleIssues = Arrays.asList(
-            createIssue("대량 스팸 메일 탐지 (1,250건)", "단일 IP에서 1시간 내 1,250건의 스팸 메일 발송 탐지",
-                "대량 스팸 메일 공격", "INBOUND", "CRITICAL", "CRITICAL", 1250, "203.142.78.91", "admin@company.com"),
-
-            createIssue("피싱 사이트 링크 포함 메일", "은행 사칭 피싱 사이트로 유도하는 링크 발견",
-                "개인정보 탈취 피싱 사이트 공격", "INBOUND", "PENDING", "HIGH", 15, "185.220.101.45", "hr@company.com"),
-
-            createIssue("의심스러운 첨부파일 탐지", "ransomware.exe 파일이 첨부된 메일 차단",
-                "바이러스, 랜섬웨어 등 악성코드 공격", "INBOUND", "CRITICAL", "CRITICAL", 3, "91.203.45.122", "finance@company.com"),
-
-            createIssue("헤더 위변조 메일 탐지", "CEO 이메일을 사칭한 송금 요청 메일",
-                "헤더 위·변조 및 유사 도메인 사칭 메일", "INBOUND", "REVIEW", "HIGH", 8, "172.104.88.29", "accounting@company.com"),
-
-            createIssue("불법 릴레이 서버 사용 탐지", "외부 서버를 통한 스팸 메일 발송 시도",
-                "불법 릴레이 서버 사용", "INBOUND", "PENDING", "MEDIUM", 45, "198.51.100.42", "mail-relay@company.com"),
-
-            createIssue("고객 정보 포함 메일 외부 발송", "개인정보 500건이 포함된 엑셀 파일 외부 전송",
-                "기업 내부 정보 유출 및 오발송 사고", "OUTBOUND", "CRITICAL", "CRITICAL", 500, "192.168.1.105", "external-partner@gmail.com"),
-
-            createIssue("바이러스 URL 공유 탐지", "악성 URL이 포함된 메일 발송 차단",
-                "바이러스 URL 공유", "OUTBOUND", "REVIEW", "HIGH", 12, "192.168.1.87", "client@external.com"),
-
-            createIssue("악성 메일 회신 탐지", "피싱 메일에 대한 직원의 회신 차단",
-                "악성 메일 회신", "OUTBOUND", "RESOLVED", "MEDIUM", 1, "192.168.1.54", "phishing@fake-bank.com"),
-
-            createIssue("대용량 파일 무단 발송", "500MB 파일을 승인 없이 외부로 발송",
-                "대용량 파일 사후관리 문제", "OUTBOUND", "PENDING", "LOW", 1, "192.168.1.92", "storage@external.com"),
-
-            createIssue("망분리 환경 파일 전송 시도", "내부망에서 외부망으로 첨부파일 전송 시도 탐지",
-                "망분리 환경에서 대용량 첨부파일 발송 문제", "OUTBOUND", "REVIEW", "MEDIUM", 1, "10.0.0.55", "external@partner.com")
-        );
-
-        repository.saveAll(sampleIssues);
-    }
+//    @Transactional
+//    public void initSampleData() {
+//        if (repository.count() > 0) {
+//            return; // Data already exists
+//        }
+//
+//        List<SecurityIssue> sampleIssues = Arrays.asList(
+//            createIssue("대량 스팸 메일 탐지 (1,250건)", "단일 IP에서 1시간 내 1,250건의 스팸 메일 발송 탐지",
+//                "대량 스팸 메일 공격", "INBOUND", "CRITICAL", "CRITICAL", 1250, "203.142.78.91", "admin@company.com"),
+//
+//            createIssue("피싱 사이트 링크 포함 메일", "은행 사칭 피싱 사이트로 유도하는 링크 발견",
+//                "개인정보 탈취 피싱 사이트 공격", "INBOUND", "PENDING", "HIGH", 15, "185.220.101.45", "hr@company.com"),
+//
+//            createIssue("의심스러운 첨부파일 탐지", "ransomware.exe 파일이 첨부된 메일 차단",
+//                "바이러스, 랜섬웨어 등 악성코드 공격", "INBOUND", "CRITICAL", "CRITICAL", 3, "91.203.45.122", "finance@company.com"),
+//
+//            createIssue("헤더 위변조 메일 탐지", "CEO 이메일을 사칭한 송금 요청 메일",
+//                "헤더 위·변조 및 유사 도메인 사칭 메일", "INBOUND", "REVIEW", "HIGH", 8, "172.104.88.29", "accounting@company.com"),
+//
+//            createIssue("불법 릴레이 서버 사용 탐지", "외부 서버를 통한 스팸 메일 발송 시도",
+//                "불법 릴레이 서버 사용", "INBOUND", "PENDING", "MEDIUM", 45, "198.51.100.42", "mail-relay@company.com"),
+//
+//            createIssue("고객 정보 포함 메일 외부 발송", "개인정보 500건이 포함된 엑셀 파일 외부 전송",
+//                "기업 내부 정보 유출 및 오발송 사고", "OUTBOUND", "CRITICAL", "CRITICAL", 500, "192.168.1.105", "external-partner@gmail.com"),
+//
+//            createIssue("바이러스 URL 공유 탐지", "악성 URL이 포함된 메일 발송 차단",
+//                "바이러스 URL 공유", "OUTBOUND", "REVIEW", "HIGH", 12, "192.168.1.87", "client@external.com"),
+//
+//            createIssue("악성 메일 회신 탐지", "피싱 메일에 대한 직원의 회신 차단",
+//                "악성 메일 회신", "OUTBOUND", "RESOLVED", "MEDIUM", 1, "192.168.1.54", "phishing@fake-bank.com"),
+//
+//            createIssue("대용량 파일 무단 발송", "500MB 파일을 승인 없이 외부로 발송",
+//                "대용량 파일 사후관리 문제", "OUTBOUND", "PENDING", "LOW", 1, "192.168.1.92", "storage@external.com"),
+//
+//            createIssue("망분리 환경 파일 전송 시도", "내부망에서 외부망으로 첨부파일 전송 시도 탐지",
+//                "망분리 환경에서 대용량 첨부파일 발송 문제", "OUTBOUND", "REVIEW", "MEDIUM", 1, "10.0.0.55", "external@partner.com")
+//        );
+//
+//        repository.saveAll(sampleIssues);
+//    }
 
     private SecurityIssue createIssue(String title, String description, String category,
                                      String type, String status, String severity,
